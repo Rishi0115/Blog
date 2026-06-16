@@ -3,7 +3,7 @@ import { posts } from "@/lib/posts";
 
 export default function Dashboard() {
   return (
-    <div>
+    <div className="mx-auto max-w-6xl px-4">
       <div className="flex justify-between items-center mb-4">
         <h1 className="text-2xl font-bold">Dashboard</h1>
         <Link href="/admin/create" className="bg-black text-white px-4 py-2">

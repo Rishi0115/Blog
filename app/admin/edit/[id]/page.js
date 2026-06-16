@@ -6,7 +6,7 @@ export default function EditPost({ params }) {
 
   if (!post) {
     return (
-      <div>
+      <div className="mx-auto max-w-6xl px-4">
         <p>Post not found.</p>
         <Link href="/admin/dashboard" className="text-blue-600">
           Back to dashboard
@@ -16,7 +16,7 @@ export default function EditPost({ params }) {
   }
 
   return (
-    <div>
+    <div className="mx-auto max-w-6xl px-4">
       <h1 className="text-2xl font-bold mb-4">Edit Post</h1>
       <form className="space-y-4">
         <div>

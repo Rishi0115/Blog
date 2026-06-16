@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function CreatePost() {
   return (
-    <div>
+    <div className="mx-auto max-w-6xl px-4">
       <h1 className="text-2xl font-bold mb-4">Create Post</h1>
       <form className="space-y-4">
         <div>
