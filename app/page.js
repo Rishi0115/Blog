@@ -35,7 +35,7 @@ export default function Home() {
   return (
     <div className="mx-auto max-w-6xl px-4">
       <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold">Latest Posts</h1>
+        <h1 className="text-2xl font-semibold text-gray-800">Posts</h1>
         <div className="flex gap-2">
           <Link href="/login" className="border px-4 py-2">
             Login

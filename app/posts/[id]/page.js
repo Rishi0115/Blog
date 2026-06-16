@@ -22,7 +22,6 @@ export default function PostPage({ params }) {
         <p className="text-sm text-gray-500 mt-1">{post.date}</p>
         <p className="mt-4">{post.content}</p>
 
-        {/* show only if owner or admin */}
         <div className="flex gap-2 mt-6">
           <Link href={`/admin/edit/${post.id}`} className="border px-4 py-2">
             Edit

@@ -1,20 +1,39 @@
+import Link from "next/link";
+
 export default function AdminLogin() {
   return (
-    <div className="mx-auto max-w-6xl px-4">
-      <h1 className="text-2xl font-bold mb-4">Admin Login</h1>
-      <form className="space-y-4">
-        <div>
-          <label className="block mb-1">Email</label>
-          <input type="email" className="border p-2 w-full" />
-        </div>
-        <div>
-          <label className="block mb-1">Password</label>
-          <input type="password" className="border p-2 w-full" />
-        </div>
-        <button type="submit" className="bg-black text-white px-4 py-2">
-          Login
-        </button>
-      </form>
+    <div className="mx-auto max-w-6xl px-4 flex items-center justify-center min-h-[80vh]">
+      <div className="bg-white rounded-lg shadow-md p-8 w-full max-w-md">
+        <h1 className="text-2xl font-bold mb-6 text-center">Admin Login</h1>
+        <form className="space-y-4">
+          <div>
+            <label className="block mb-1 text-sm font-medium">Email</label>
+            <input
+              type="email"
+              className="border rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+          <div>
+            <label className="block mb-1 text-sm font-medium">Password</label>
+            <input
+              type="password"
+              className="border rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+          <button
+            type="submit"
+            className="bg-blue-600 text-white px-4 py-2 w-full rounded-md hover:bg-blue-700 transition"
+          >
+            Login
+          </button>
+        </form>
+        <p className="text-sm text-center mt-4 text-gray-500">
+          Don&apos;t have an admin account?{" "}
+          <Link href="/admin/signup" className="text-blue-600 hover:underline">
+            Sign up
+          </Link>
+        </p>
+      </div>
     </div>
   );
 }
