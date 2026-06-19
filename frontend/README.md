@@ -1,26 +1,27 @@
-# Blog App
+# My Blog App
 
-A simple blogging portal built with Next.js 14 and Tailwind CSS.
+This is a simple blog website that lets users view posts and admins manage them.
 
-## Tech Stack
+### Tech Stack
+* Next.js
+* Tailwind CSS
+* Axios
 
-- Next.js 14 (App Router)
-- React 18
-- Tailwind CSS 3
+### Features
+* Browse posts
+* Search for posts by title
+* Pagination to view different pages of posts
+* Login and signup pages
+* Write new posts
+* Edit and delete posts (restricted to admins only)
 
-## Features
-
-- Home page with search filtering and pagination
-- Post detail page with edit/delete options
-- User login and create post pages
-- Admin login, dashboard, create post, and edit post pages
-- Consistent layout across all pages
-
-## How to Run
-
+### How to Run
+First, install the packages:
 ```bash
 npm install
-npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+Then start the development server:
+```bash
+npm run dev
+```
