@@ -3,29 +3,37 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import PostCard from "@/components/PostCard";
-import { posts } from "@/lib/posts";
+import api from "@/lib/api";
 
 const POSTS_PER_PAGE = 6;
 
 export default function Home() {
+  const [posts, setPosts] = useState([]);
+  const [totalCount, setTotalCount] = useState(0);
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 500);
-    return () => clearTimeout(timer);
-  }, []);
+    setLoading(true);
+    api.get(`posts/?page=${currentPage}`)
+      .then((res) => {
+        setPosts(res.data.results || []);
+        setTotalCount(res.data.count || 0);
+      })
+      .catch((err) => {
+        console.error(err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, [currentPage]);
 
   const filteredPosts = posts.filter((post) =>
     post.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE);
-  const paginatedPosts = filteredPosts.slice(
-    (currentPage - 1) * POSTS_PER_PAGE,
-    currentPage * POSTS_PER_PAGE
-  );
+  const totalPages = Math.ceil(totalCount / POSTS_PER_PAGE);
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
@@ -57,7 +65,7 @@ export default function Home() {
             className="border p-2 w-full rounded mb-6"
           />
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {paginatedPosts.map((post) => (
+            {filteredPosts.map((post) => (
               <PostCard key={post.id} post={post} />
             ))}
           </div>
@@ -85,3 +93,4 @@ export default function Home() {
     </div>
   );
 }
+
