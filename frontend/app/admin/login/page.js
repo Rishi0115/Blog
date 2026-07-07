@@ -2,36 +2,33 @@ import Link from "next/link";
 
 export default function AdminLogin() {
   return (
-    <div className="mx-auto max-w-6xl px-4 flex items-center justify-center min-h-[80vh]">
-      <div className="bg-white rounded-lg shadow-md p-8 w-full max-w-md">
-        <h1 className="text-2xl font-bold mb-6 text-center">Admin Login</h1>
-        <form className="space-y-4">
-          <div>
-            <label className="block mb-1 text-sm font-medium">Email</label>
+    <div className="form-page">
+      <div className="form-card">
+        <h1 className="form-title">Admin login</h1>
+        <form>
+          <div className="form-group">
+            <label className="form-label">Email</label>
             <input
               type="email"
-              className="border rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="form-input"
+              placeholder="admin@example.com"
             />
           </div>
-          <div>
-            <label className="block mb-1 text-sm font-medium">Password</label>
+          <div className="form-group">
+            <label className="form-label">Password</label>
             <input
               type="password"
-              className="border rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="form-input"
+              placeholder="Enter your password"
             />
           </div>
-          <button
-            type="submit"
-            className="bg-blue-600 text-white px-4 py-2 w-full rounded-md hover:bg-blue-700 transition"
-          >
+          <button type="submit" className="btn btn-primary form-submit">
             Login
           </button>
         </form>
-        <p className="text-sm text-center mt-4 text-gray-500">
+        <p className="form-footer">
           Don&apos;t have an admin account?{" "}
-          <Link href="/admin/signup" className="text-blue-600 hover:underline">
-            Sign up
-          </Link>
+          <Link href="/admin/signup">Sign up</Link>
         </p>
       </div>
     </div>

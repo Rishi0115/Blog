@@ -20,58 +20,48 @@ export default function Login() {
       localStorage.setItem("role", res.data.role);
       alert("Login successful!");
       router.push("/");
-    } catch (err) {
-      setError("Invalid username or password");
+    } catch {
+      setError("Invalid username or password.");
     }
   };
 
   return (
-    <div className="mx-auto max-w-6xl px-4 flex items-center justify-center min-h-[80vh]">
-      <div className="bg-white rounded-lg shadow-md p-8 w-full max-w-md">
-        <h1 className="text-2xl font-bold mb-6 text-center">Login</h1>
-        {error && (
-          <p className="text-red-500 text-sm text-center mb-4">{error}</p>
-        )}
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block mb-1 text-sm font-medium">Username</label>
+    <div className="form-page">
+      <div className="form-card">
+        <h1 className="form-title">Welcome back</h1>
+        {error && <p className="form-error">{error}</p>}
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label className="form-label">Username</label>
             <input
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="border rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="form-input"
+              placeholder="Enter your username"
             />
           </div>
-          <div>
-            <label className="block mb-1 text-sm font-medium">Password</label>
+          <div className="form-group">
+            <label className="form-label">Password</label>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="border rounded-md p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="form-input"
+              placeholder="Enter your password"
             />
           </div>
-          <button
-            type="submit"
-            className="bg-blue-600 text-white px-4 py-2 w-full rounded-md hover:bg-blue-700 transition"
-          >
+          <button type="submit" className="btn btn-primary form-submit">
             Login
           </button>
         </form>
-        <p className="text-sm text-center mt-4 text-gray-500">
-          Don&apos;t have an account?{" "}
-          <Link href="/signup" className="text-blue-600 hover:underline">
-            Sign up
-          </Link>
+        <p className="form-footer">
+          Don&apos;t have an account? <Link href="/signup">Sign up</Link>
         </p>
-        <p className="text-sm text-center mt-2 text-gray-500">
-          Are you an admin?{" "}
-          <Link href="/admin/login" className="text-blue-600 hover:underline">
-            Login here
-          </Link>
+        <p className="form-footer">
+          Admin? <Link href="/admin/login">Login here</Link>
         </p>
       </div>
     </div>
   );
 }
-

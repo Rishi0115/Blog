@@ -12,16 +12,11 @@ export default function PostPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    api.get(`posts/${id}/`)
-      .then((res) => {
-        setPost(res.data);
-      })
-      .catch((err) => {
-        console.error(err);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    api
+      .get(`posts/${id}/`)
+      .then((res) => setPost(res.data))
+      .catch((err) => console.error(err))
+      .finally(() => setLoading(false));
   }, [id]);
 
   const handleEdit = () => {
@@ -51,64 +46,55 @@ export default function PostPage() {
     }
     try {
       await api.delete(`posts/${post.id}/`, {
-        headers: {
-          Authorization: `Token ${token}`,
-        },
+        headers: { Authorization: `Token ${token}` },
       });
       router.push("/");
-    } catch (err) {
+    } catch {
       alert("Failed to delete post.");
     }
   };
 
   if (loading) {
     return (
-      <div className="mx-auto max-w-6xl px-4">
-        <p>Loading...</p>
+      <div className="post-detail-page">
+        <p className="loading-text">Loading...</p>
       </div>
     );
   }
 
   if (!post) {
     return (
-      <div className="mx-auto max-w-6xl px-4">
-        <p>Post not found.</p>
-        <Link href="/" className="text-blue-600">
-          Back to home
-        </Link>
+      <div className="post-detail-page">
+        <p style={{ color: "var(--text-muted)", marginBottom: "1rem" }}>Post not found.</p>
+        <Link href="/" className="back-link">← Back to home</Link>
       </div>
     );
   }
 
   const formattedDate = post.date
     ? new Date(post.date).toLocaleDateString("en-US", {
-        month: "long",
+        month: "short",
         day: "numeric",
         year: "numeric",
       })
     : "";
 
   return (
-    <div className="mx-auto max-w-6xl px-4">
+    <div className="post-detail-page">
       <article>
-        <h1 className="text-2xl font-bold">{post.title}</h1>
-        <p className="text-sm text-gray-500 mt-1">{formattedDate}</p>
-        <p className="mt-4">{post.content}</p>
-
-        <div className="flex gap-2 mt-6">
-          <button type="button" onClick={handleEdit} className="border px-4 py-2">
+        <h1 className="post-title">{post.title}</h1>
+        {formattedDate && <p className="post-date">{formattedDate}</p>}
+        <p className="post-content">{post.content}</p>
+        <div className="post-actions">
+          <button type="button" onClick={handleEdit} className="btn btn-outline">
             Edit
           </button>
-          <button type="button" onClick={handleDelete} className="border px-4 py-2">
+          <button type="button" onClick={handleDelete} className="btn btn-danger">
             Delete
           </button>
         </div>
-
-        <Link href="/" className="text-blue-600 mt-4 inline-block">
-          Back to home
-        </Link>
       </article>
+      <Link href="/" className="back-link">← Back to home</Link>
     </div>
   );
 }
-

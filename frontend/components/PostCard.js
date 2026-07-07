@@ -3,21 +3,22 @@ import Link from "next/link";
 export default function PostCard({ post }) {
   const formattedDate = post.date
     ? new Date(post.date).toLocaleDateString("en-US", {
-        month: "long",
+        month: "short",
         day: "numeric",
         year: "numeric",
       })
     : "";
 
   return (
-    <article className="border rounded p-6">
-      <h2 className="text-lg font-semibold">{post.title}</h2>
-      <p className="text-sm text-gray-500 mt-1">{formattedDate}</p>
-      <p className="mt-2">{post.excerpt}</p>
-      <Link href={`/posts/${post.id}`} className="text-blue-600 mt-2 inline-block">
-        Read More
-      </Link>
+    <article className="post-card">
+      {formattedDate && <p className="post-card-date">{formattedDate}</p>}
+      <h2 className="post-card-title">{post.title}</h2>
+      <p className="post-card-excerpt">{post.excerpt}</p>
+      <div className="post-card-footer">
+        <Link href={`/posts/${post.id}`} className="read-more">
+          Read more <span className="read-more-arrow">→</span>
+        </Link>
+      </div>
     </article>
   );
 }
-

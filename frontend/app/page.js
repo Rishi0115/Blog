@@ -16,17 +16,14 @@ export default function Home() {
 
   useEffect(() => {
     setLoading(true);
-    api.get(`posts/?page=${currentPage}`)
+    api
+      .get(`posts/?page=${currentPage}`)
       .then((res) => {
         setPosts(res.data.results || []);
         setTotalCount(res.data.count || 0);
       })
-      .catch((err) => {
-        console.error(err);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+      .catch((err) => console.error(err))
+      .finally(() => setLoading(false));
   }, [currentPage]);
 
   const filteredPosts = posts.filter((post) =>
@@ -35,57 +32,63 @@ export default function Home() {
 
   const totalPages = Math.ceil(totalCount / POSTS_PER_PAGE);
 
-  const handleSearch = (e) => {
-    setSearchTerm(e.target.value);
-    setCurrentPage(1);
-  };
-
   return (
-    <div className="mx-auto max-w-6xl px-4">
-      <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-semibold text-gray-800">Posts</h1>
-        <div className="flex gap-2">
-          <Link href="/login" className="border px-4 py-2">
-            Login
-          </Link>
-          <Link href="/create" className="bg-black text-white px-4 py-2">
+    <div className="page">
+      <div className="posts-header">
+        <h1>Posts</h1>
+        <div className="header-btns">
+          <Link href="/create" className="btn btn-primary">
             Write Post
           </Link>
         </div>
       </div>
+
       {loading ? (
-        <p className="text-center text-gray-500 mt-10">Loading posts...</p>
+        <p className="loading-text">Loading posts...</p>
       ) : (
         <>
-          <input
-            type="text"
-            placeholder="Search posts..."
-            value={searchTerm}
-            onChange={handleSearch}
-            className="border p-2 w-full rounded mb-6"
-          />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="search-wrap">
+            <span className="search-icon">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="11" cy="11" r="8" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+              </svg>
+            </span>
+            <input
+              type="text"
+              placeholder="Search posts..."
+              value={searchTerm}
+              onChange={(e) => {
+                setSearchTerm(e.target.value);
+                setCurrentPage(1);
+              }}
+              className="search-input"
+            />
+          </div>
+
+          <div className="posts-grid">
             {filteredPosts.map((post) => (
               <PostCard key={post.id} post={post} />
             ))}
           </div>
-          <div className="flex justify-center items-center gap-4 mt-6">
+
+          <div className="pagination">
             <button
               onClick={() => setCurrentPage((p) => p - 1)}
               disabled={currentPage === 1}
-              className="border px-4 py-2 disabled:opacity-50"
+              className="btn btn-outline"
             >
-              Previous
+              ← Prev
             </button>
-            <span>
-              Page {currentPage} of {totalPages || 1}
+            <span className="pagination-info">
+              {currentPage} / {totalPages || 1}
             </span>
             <button
               onClick={() => setCurrentPage((p) => p + 1)}
               disabled={currentPage >= totalPages}
-              className="border px-4 py-2 disabled:opacity-50"
+              className="btn btn-outline"
             >
-              Next
+              Next →
             </button>
           </div>
         </>
@@ -93,4 +96,3 @@ export default function Home() {
     </div>
   );
 }
-

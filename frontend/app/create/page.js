@@ -29,56 +29,54 @@ export default function CreatePost() {
           excerpt,
           is_published: "true",
         }),
-        {
-          headers: {
-            Authorization: `Token ${token}`,
-          },
-        }
+        { headers: { Authorization: `Token ${token}` } }
       );
       router.push("/");
-    } catch (err) {
+    } catch {
       setError("Failed to publish post. Please login first.");
     }
   };
 
   return (
-    <div className="mx-auto max-w-6xl px-4">
-      <h1 className="text-2xl font-bold mb-4">Write Post</h1>
-      {error && (
-        <p className="text-red-500 text-sm mb-4">{error}</p>
-      )}
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label className="block mb-1">Title</label>
+    <div className="create-page">
+      <h1 className="create-title">Write a post</h1>
+      {error && <p className="form-error">{error}</p>}
+      <form onSubmit={handleSubmit} className="create-form">
+        <div className="form-group">
+          <label className="form-label">Title</label>
           <input
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="border p-2 w-full"
+            className="form-input"
+            placeholder="Give your post a title..."
           />
         </div>
-        <div>
-          <label className="block mb-1">Excerpt</label>
+        <div className="form-group">
+          <label className="form-label">Excerpt</label>
           <input
             type="text"
             value={excerpt}
             onChange={(e) => setExcerpt(e.target.value)}
-            className="border p-2 w-full"
+            className="form-input"
+            placeholder="A short summary..."
           />
         </div>
-        <div>
-          <label className="block mb-1">Content</label>
+        <div className="form-group">
+          <label className="form-label">Content</label>
           <textarea
             value={content}
             onChange={(e) => setContent(e.target.value)}
-            className="border p-2 w-full h-32"
+            className="form-textarea"
+            placeholder="Write your post here..."
           />
         </div>
-        <button type="submit" className="bg-black text-white px-4 py-2">
-          Publish
-        </button>
+        <div>
+          <button type="submit" className="btn btn-primary" style={{ padding: "10px 24px" }}>
+            Publish
+          </button>
+        </div>
       </form>
     </div>
   );
 }
-
